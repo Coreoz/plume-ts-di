@@ -137,3 +137,8 @@ Plume TS DI relies on:
 - [simple-logging-system](https://github.com/coreoz/simple-logging-system) for logging
 - [DI](https://github.com/wessberg/DI) a dependency injection library that works great but which has some unresolved bug and missing features (fixed in Plume TS DI)
 - [DI Compiler](https://github.com/wessberg/di-compiler) The [TypeScript transformer](https://github.com/madou/typescript-transformer-handbook) used by DI. This transformer is currently still required by Plume TS DI
+
+Release process
+---------------
+1. run `npm login`
+2. run `npm run release` <= yarn **must not** be used
