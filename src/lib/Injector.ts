@@ -4,9 +4,6 @@ import { NewableService } from '@wessberg/di/dist/cjs/newable-service/newable-se
 import { Provider } from './Provider';
 import SingletonInstances from './SingletonInstances';
 
-export const CONSTRUCTOR_NAME_SYMBOL_IDENTIFIER = '___CTOR_NAME___';
-export const CONSTRUCTOR_NAME_SYMBOL: unique symbol = Symbol.for(CONSTRUCTOR_NAME_SYMBOL_IDENTIFIER);
-
 /**
  * The dependency injector used to register and retrieve services
  */
@@ -16,6 +13,10 @@ export class Injector {
   private readonly singletonInstances = new SingletonInstances();
 
   private readonly registeredTypes = new Set<Function & { prototype: any } | Implementation<any>>();
+
+  static readonly CONSTRUCTOR_NAME_SYMBOL_IDENTIFIER = '___CTOR_NAME___';
+
+  static readonly CONSTRUCTOR_NAME_SYMBOL: unique symbol = Symbol.for(Injector.CONSTRUCTOR_NAME_SYMBOL_IDENTIFIER);
 
   /**
    * Register an implementation to an optional type
@@ -86,7 +87,7 @@ export class Injector {
 
   private static getTypeName<T>(type: Function & { prototype: T } | Implementation<T>) : string {
     // @ts-ignore
-    const typeName = type[CONSTRUCTOR_NAME_SYMBOL];
+    const typeName = type[Injector.CONSTRUCTOR_NAME_SYMBOL];
     if (typeName) {
       return typeName;
     }
