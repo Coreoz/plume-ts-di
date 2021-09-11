@@ -11,7 +11,7 @@ export default class SingletonInstances {
     const { createdInstances } = this;
     // it is not possible to use the "new" keyword on arrow function, hence the anonymous function
     // eslint-disable-next-line func-names
-    const singletonProxy = function (...args: any[]) {
+    const singletonProxy: Implementation<any> = function (...args: any[]) {
       const previousInstance = createdInstances.get(singletonType);
       if (previousInstance) {
         return previousInstance;
@@ -27,7 +27,8 @@ export default class SingletonInstances {
         logger.error(`Detailed implementation for '${singletonType.name}': ${singletonType}`);
         return null;
       }
-    };
+      // `as any` is required to force TS compiler to accept the function as type of Implementation<any>
+    } as any;
     // DI Compiler magic add the property CONSTRUCTOR_ARGUMENTS_SYMBOL to class objects,
     // so we need to attach this property CONSTRUCTOR_ARGUMENTS_SYMBOL for the proxy
     // to make sure DI will find the constructor arguments in the proxy
@@ -36,8 +37,6 @@ export default class SingletonInstances {
       CONSTRUCTOR_ARGUMENTS_SYMBOL,
       { value: singletonType[CONSTRUCTOR_ARGUMENTS_SYMBOL] },
     );
-    // I cannot figure out how to make the TS compiler accept the proxy
-    // @ts-ignore
     return singletonProxy;
   }
 }

@@ -26,11 +26,9 @@ export class Injector {
    * since in TS interfaces are not compiled into the JS output.
    */
   registerSingleton<T, I extends T>(implementationType: Implementation<I>, mappedType?: Function & { prototype: T }) {
-    // @ts-ignore
     this.container.registerSingleton(
       undefined,
       {
-        // @ts-ignore
         identifier: mappedType ? Injector.getTypeName(mappedType) : Injector.getTypeName(implementationType),
         implementation: this.singletonInstances.singletonProxy(implementationType),
       },
@@ -52,11 +50,10 @@ export class Injector {
     const getInstance = (type: NewableService<Provider<I>>) => this.getInstance(type);
     // it is not possible to use the "new" keyword on arrow function, hence the anonymous function
     // eslint-disable-next-line func-names
-    const providerProxy = function () {
+    const providerProxy: Implementation<any> = function () {
       return getInstance(providerType).get();
-    };
-    // I cannot figure out how to make the TS compiler accept the proxy
-    // @ts-ignore
+    } as any;
+    // `as any` is required to force TS compiler to accept the function as type of Implementation<any>
     this.registerSingleton(providerProxy, mappedType);
   }
 
@@ -86,8 +83,7 @@ export class Injector {
   }
 
   private static getTypeName<T>(type: Function & { prototype: T } | Implementation<T>) : string {
-    // @ts-ignore
-    const typeName = type[Injector.CONSTRUCTOR_NAME_SYMBOL];
+    const typeName = (type as any)[Injector.CONSTRUCTOR_NAME_SYMBOL];
     if (typeName) {
       return typeName;
     }
