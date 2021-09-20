@@ -32,7 +32,7 @@ export default function(program: ts.Program) {
 
 Usage
 -----
-1. Write your classes as usual without any annotation :)
+1. Write your classes as usual without any annotation :). Make sure **all classes have a unique name**: the class name is used as a key in the dependency injection system. 
 2. Declare a module (you should have one module per module of your application), for example:
 ```typescript
 export default function installServicesModule(injector: Injector) {
