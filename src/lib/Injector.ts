@@ -67,6 +67,15 @@ export class Injector {
   }
 
   /**
+   * Verify if an instance of a type that has been registered
+   * (cf {@link registerSingleton} and {@link registerSingletonProvider})
+   * @param type The type for which the registration test is wanted
+   */
+  hasInstance<T>(type: Function & { prototype: T }): boolean {
+    return this.container.has({ identifier: Injector.getTypeName(type) });
+  }
+
+  /**
    * Initialize all singleton instances: i.e. all constructors of mapped types implementation will be called.
    * This should be called after all types have been declared.
    *

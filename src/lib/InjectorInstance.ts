@@ -15,6 +15,16 @@ export function configureGlobalInjector(injector: Injector) {
 }
 
 /**
+ * Get the instance of the global injector.
+ *
+ * This should be used only to dynamically modify the current global instance.
+ * Instances should be fetched using {@link getGlobalInstance}
+ */
+export function exportGlobalInjector(): Injector | undefined {
+  return globalInjector;
+}
+
+/**
  * Get instances configure in the global injector instance. See {@link Injector.getInstance}
  * @param type The type for which an instance of is required
  */
