@@ -74,8 +74,8 @@ export default class ServiceProvider implements Provider<Service> {
     }
   }
   
-  get(): OoarpCallService {
-    return this.ooarpCallService;
+  get(): Service {
+    return this.service;
   }
 }
 ```
