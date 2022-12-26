@@ -1,6 +1,6 @@
 import { DIContainer } from '@wessberg/di';
 import { Implementation } from '@wessberg/di/dist/esm/implementation/implementation';
-import { NewableService } from '@wessberg/di/dist/cjs/newable-service/newable-service';
+import { NewableService } from '@wessberg/di/dist/esm/newable-service/newable-service';
 import { Provider } from './Provider';
 import SingletonInstances from './SingletonInstances';
 
@@ -47,13 +47,12 @@ export class Injector {
     mappedType: Function & { prototype: T },
   ) {
     this.registerSingleton(providerType);
-    const getInstance = (type: NewableService<Provider<I>>) => this.getInstance(type);
+    const getInstance = (type: NewableService<Provider<I>>) => this.getInstance<Provider<I>>(type);
     // it is not possible to use the "new" keyword on arrow function, hence the anonymous function
     // eslint-disable-next-line func-names
-    const providerProxy: Implementation<any> = function () {
+    const providerProxy = function () {
       return getInstance(providerType).get();
-    } as any;
-    // `as any` is required to force TS compiler to accept the function as type of Implementation<any>
+    } as unknown as Implementation<T>;
     this.registerSingleton(providerProxy, mappedType);
   }
 
