@@ -39,6 +39,7 @@
   "engines": {
     "node": ">=10"
   },
+  "sideEffects": false,
   "peerDependencies": {
     "@wessberg/di": "^2.0.3",
     "@wessberg/di-compiler": "^2.0.3",
