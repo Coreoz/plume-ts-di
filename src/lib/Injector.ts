@@ -1,6 +1,6 @@
 import { DIContainer } from '@wessberg/di';
-import { Implementation } from '@wessberg/di/dist/esm/implementation/implementation';
-import { NewableService } from '@wessberg/di/dist/esm/newable-service/newable-service';
+import { Implementation } from '../typing/implementation';
+import { NewableService } from '../typing/newable-service';
 import { Provider } from './Provider';
 import SingletonInstances from './SingletonInstances';
 

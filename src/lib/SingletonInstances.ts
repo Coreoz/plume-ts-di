@@ -1,6 +1,6 @@
-import { Implementation } from '@wessberg/di/dist/esm/implementation/implementation';
 import { Logger } from 'simple-logging-system';
 import { CONSTRUCTOR_ARGUMENTS_SYMBOL } from '@wessberg/di';
+import { Implementation } from '../typing/implementation';
 
 const logger = new Logger('SingletonInstances');
 
