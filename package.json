@@ -47,9 +47,6 @@
     "simple-logging-system": "^1.0.7",
     "typescript": "^4.0.2"
   },
-  "optionalDependencies": {
-    "@wessberg/di-compiler": "^2.2.6"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
